@@ -1,0 +1,38 @@
+{
+  "input": "openapi.json",
+  "output": "../../generated/pulse",
+  "packageName": "@acme/pulse-sdk",
+  "clientName": "PulseClient",
+  "envPrefix": "PULSE",
+  "targets": {
+    "typescript": {
+      "packageName": "@acme/pulse-sdk"
+    },
+    "python": {
+      "packageName": "acme-pulse",
+      "moduleName": "pulse_sdk"
+    },
+    "docs": {
+      "title": "Pulse API SDK"
+    },
+    "mcp": {
+      "enabled": true,
+      "codeMode": true,
+      "codeModeEnvVar": "PULSE_MCP_CODE_MODE"
+    }
+  },
+  "reliability": {
+    "maxRetries": 2,
+    "timeoutMs": 60000,
+    "idempotency": {
+      "enabled": true,
+      "headerName": "Idempotency-Key",
+      "autoGenerate": true
+    },
+    "rateLimit": {
+      "maxConcurrent": 8,
+      "requestsPerSecond": 20,
+      "burst": 20
+    }
+  }
+}
