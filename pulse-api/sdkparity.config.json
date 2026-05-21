@@ -1,6 +1,6 @@
 {
   "input": "openapi.json",
-  "output": "../../generated/pulse",
+  "output": "../generated/pulse",
   "packageName": "@acme/pulse-sdk",
   "clientName": "PulseClient",
   "envPrefix": "PULSE",
@@ -14,6 +14,10 @@
     },
     "docs": {
       "title": "Pulse API SDK"
+    },
+    "cli": {
+      "packageName": "@acme/pulse-sdk-cli",
+      "binaryName": "pulse"
     },
     "mcp": {
       "enabled": true,
