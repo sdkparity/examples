@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout examples
+        uses: actions/checkout@v4
+        with:
+          path: examples
+
+      - name: Checkout SDK Parity
+        uses: actions/checkout@v4
+        with:
+          repository: sdkparity/sdkparity
+          path: sdkparity
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install SDK Parity dependencies
+        working-directory: sdkparity
+        run: bun install --frozen-lockfile
+
+      - name: Build SDK Parity
+        working-directory: sdkparity
+        run: bun run build
+
+      - name: Check public examples
+        working-directory: examples
+        run: SDKPARITY_REPO=../sdkparity bun run check
